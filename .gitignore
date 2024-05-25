@@ -1,2 +1,7 @@
 *.exe
-path.txt
+openai_api_key.py
+__pycache__
+.venv
+
+test
+practice.py

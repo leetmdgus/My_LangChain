@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-class WebBaseLoaderClass:
+class WebBaseLoader:
     def __init__(self, url: str):
         self.url = url
         
@@ -26,7 +26,6 @@ class WebBaseLoaderClass:
         return texts
 
 if __name__ == '__main__':
-    loader = WebBaseLoaderClass('https://n.news.naver.com/article/214/0001350812?cds=news_media_pc&type=editn')
-    # print(loader.load_and_split())
-    # print(len(loader.load_and_split()))
+    loader = WebBaseLoader('https://n.news.naver.com/article/214/0001350812?cds=news_media_pc&type=editn')
+    # loader = WebBaseLoader('http://18children.president.pa.go.kr/mobile/our_space/fairy_tales.php?srh%5Bcategory%5D=07&srh%5Bview_mode%5D=detail&srh%5Bseq%5D=1204')
     print(loader.load())

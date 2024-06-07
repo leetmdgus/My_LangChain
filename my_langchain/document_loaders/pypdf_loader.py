@@ -1,8 +1,7 @@
 import requests
 from pypdf import PdfReader
 
-
-class PyPDFLoaderClass:
+class PyPDFLoader:
     def __init__(self, pdf:str):
         # PDF 파일 URL
         url = pdf;
@@ -33,10 +32,10 @@ class PyPDFLoaderClass:
         reader = PdfReader(self.file_path)
         texts = [page.extract_text() for page in reader.pages]
         return texts        
-
+    
 
 if __name__ == '__main__':
-    loader = PyPDFLoaderClass('https://snuac.snu.ac.kr/2015_snuac/wp-content/uploads/2015/07/asiabrief_3-26.pdf')
+    loader = PyPDFLoader('https://snuac.snu.ac.kr/2015_snuac/wp-content/uploads/2015/07/asiabrief_3-26.pdf')
     # print(loader.load_and_split()) 
     # print(len(loader.load_and_split()))
     print(loader.load())

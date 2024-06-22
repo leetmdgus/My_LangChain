@@ -11,4 +11,4 @@ class LLMChain:
     
     def __call__(self, query: str):
         query = f'{self.retriver}만을 참고해서 {query}를 답해줘'
-        return (self.llm.predict(query))
+        return self.llm.predict(query)

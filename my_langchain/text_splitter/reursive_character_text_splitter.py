@@ -54,15 +54,3 @@ class RecursiveCharacterTextSplitter:
         new_chunk.append(word)
         return new_chunk
 
-
-
-# 예제 사용
-if __name__ == '__main__':
-    text = "This is a long text. It contains multiple sentences and paragraphs.\n\nWe want to split it into chunks."
-    print(text)
-    print("================")
-    splitter = RecursiveCharacterTextSplitter(chunk_size=20, chunk_overlap=5)
-    chunks = splitter.split_text(text)
-
-    for chunk in chunks:
-        print(chunk)

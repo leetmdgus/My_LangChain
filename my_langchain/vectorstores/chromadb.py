@@ -1,4 +1,3 @@
-
 import chromadb
 
 class Chroma:

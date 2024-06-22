@@ -33,11 +33,3 @@ class CharacterTextSplitter:
                     start += self.chunk_size
         return result
     
-
-if __name__ == '__main__':
-    text = '123\n12345\n\n567891234\n\n\n\n\n\n\n567891\n234567123456789891231234567894\n56789123456789456123\n';
-    spliiter = CharacterTextSplitter()
-    chunks = spliiter.split_text(text);
-    
-    for chunk in chunks:
-        print(chunk)

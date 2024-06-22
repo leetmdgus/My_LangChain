@@ -4,5 +4,5 @@ from .web_base_loader import WebBaseLoader
 
 __all__ = [
     "PyPDFLoader",
-    "WebBaseLoader",
+    "WebBaseLoader"
 ]

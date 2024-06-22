@@ -4,7 +4,7 @@ from pypdf import PdfReader
 class PyPDFLoader:
     def __init__(self, pdf:str):
         # PDF 파일 URL
-        url = pdf;
+        url = pdf
 
         # 다운로드할 파일 경로 지정
         self.file_path = "./My_LangChain/downloads/downloaded_example.pdf"
@@ -33,9 +33,3 @@ class PyPDFLoader:
         texts = [page.extract_text() for page in reader.pages]
         return texts        
     
-
-if __name__ == '__main__':
-    loader = PyPDFLoader('https://snuac.snu.ac.kr/2015_snuac/wp-content/uploads/2015/07/asiabrief_3-26.pdf')
-    # print(loader.load_and_split()) 
-    # print(len(loader.load_and_split()))
-    print(loader.load())

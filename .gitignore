@@ -1,7 +1,9 @@
 *.exe
-openai_api_key.py
 __pycache__
 .venv
 
 test
 practice.py
+
+test
+test.py

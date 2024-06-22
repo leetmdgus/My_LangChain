@@ -1,24 +1,14 @@
-from My_LangChain.my_langchain.chat_models import MyOpenAI
+from my_langchain.chat_models import ChatOpenAI
 
 class LLMChain:
-    def __init__(self, llm, retriever):
-        self.llm = llm
-        self.retriever = retriever
+    def __init__(self, llm:ChatOpenAI, retriver = None):
+        self.llm:ChatOpenAI = llm
+        self.retriver = retriver
     
     @classmethod
-    def from_llm(cls, llm, retriever):
-        return cls(llm, retriever)
+    def from_llm(cls, llm, retriver):
+        return cls(llm, retriver)
     
-    def __call__(self, input: str):
-        prompt = self.retriever + input
+    def __call__(self, prompt: str):
         response = self.llm.predict(prompt)
         return response
-
-if __name__ == '__main__':
-    llm = MyOpenAI()
-    retriever = None
-    
-    chain = LLMChain.from_llm(llm=llm, retriever=retriever)
-
-    
-    

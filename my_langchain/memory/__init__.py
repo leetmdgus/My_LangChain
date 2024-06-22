@@ -1,5 +1,4 @@
-from .conversation_summary_memory import ConversationSummaryMemory
-
+from .conversation_buffer_memory import ConversationBufferMemory
 __all__ = [
-    'ConversationSummaryMemory'
+    'ConversationBufferMemory'
 ]

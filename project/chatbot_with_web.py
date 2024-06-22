@@ -1,32 +1,25 @@
-from my_langchain.text_splitter import CharacterTextSplitter
-
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from my_langchain.chains.llm_chain import LLMChain
 from my_langchain.vectorstores import Chroma
 from my_langchain.chat_models import ChatOpenAI
-from my_langchain.memory import ConversationSummaryMemory
-from my_langchain.chains import ConversationChain
-
-
 from my_langchain.document_loaders import WebBaseLoader
 
 class ChatbotWithWeb:
     def __init__(self, url: str):
-        llm = ChatOpenAI();
+        self.llm = ChatOpenAI();
         
         loader = WebBaseLoader(url)
         pages = loader.load()
 
-        text_splitter = CharacterTextSplitter(chunk_size=500)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=200)
         splits = text_splitter.split_text(pages)
 
-        vectorestore = Chroma.from_texts(texts=splits)
-        retriver = vectorestore.as_retriever()
+        self.vectorestore = Chroma.from_texts(texts=splits)
         
-        memory = ConversationSummaryMemory(llm)
-        
-        self.qa = ConversationChain.from_llm(llm = llm, memory=memory, retriver=retriver)
-        
-    def __call__(self, input: str):
-        print(self.qa(input))
+    def __call__(self, query: str):
+        doc = self.vectorestore.similarity_search(query)
+        self.qa = LLMChain.from_llm(llm = self.llm, retriver=doc)
+        print(self.qa(query))
 
 if __name__ == '__main__':
     chat2 = ChatbotWithWeb(url = 'http://18children.president.pa.go.kr/mobile/our_space/fairy_tales.php?srh%5Bcategory%5D=07&srh%5Bview_mode%5D=detail&srh%5Bseq%5D=1204')

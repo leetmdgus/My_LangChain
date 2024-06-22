@@ -1,5 +1,5 @@
 class CharacterTextSplitter:
-    def __init__(self, separator:str = '\n', chunk_size:int = 10):
+    def __init__(self, separator:str = '\n', chunk_size:int = 500):
         self.separator = separator;
         self.chunk_size = chunk_size;
         

@@ -1,75 +1,68 @@
 # # chunk size =  chunk의 최대 크기
 # # chunk_overlap= chunk의 겹치는 갯수 
-# class RecursiveCharacterTextSplitterClass:
-#     def __init__(self, chunk_size=1000, chunk_overlap=100):
-#         self.chunk_size = chunk_size
-#         self.chunk_overlap = chunk_overlap
-#         self.separators = ['\n\n', '\n', '.']
+class RecursiveCharacterTextSplitter:
+    def __init__(self, chunk_size = 300, chunk_overlap = 100):
+        self.chunk_size:int = chunk_size
+        self.chunk_overlap:int = chunk_overlap
 
-#     def create_documents(self, text: str):
-#         return self._split_text(text, 0)
+    def split_text(self, text:str):
+        # 단어 단위로 text split
 
-#     def _split_text(self, text, separators_idx=0):
-#         if separators_idx >= len(self.separators):
-#             return self._split_by_chunk_size(text)
+        text = text.replace('\n', ' ')
+        text = text.replace('.', ' ')
+        text = text.replace(',', ' ')
+        text = text.replace('\t', ' ')
+        while '  ' in text:
+            text = text.replace('  ', ' ')
 
-#         separator = self.separators[separators_idx]
-#         parts = text.split(separator)
+        chunks = text.split(' ')
 
-#         if len(parts) == 1:
-#             return self._split_text(text, separators_idx + 1)
 
-#         chunks = []
-#         buffer = ""
+        #chunk_size - chunk_overlap 사이즈로 분할하기
+        splited_chunk = []
+        for chunk in chunks:
+            if len(chunk) > self.chunk_size - self.chunk_overlap:
+                splited_chunk.append(chunk[0:len(chunk)//2])
+                splited_chunk.append(chunk[len(chunk)//2:])
+            else:
+                splited_chunk.append(chunk)
+                
 
-#         for part in parts:
-#             if len(buffer + separator + part) <= self.chunk_size:
-#                 buffer += (separator if buffer else "") + part
-#             else:
-#                 if buffer:
-#                     chunks.append(buffer)
-#                 buffer = part
+        #chunk_overlap만큼 앞에 반복하고 chunk_size - chunk_overlap만큼 합치기
+        new_chunk = []
+        word = ''
+        base = -1
+        for idx, chunk in enumerate(splited_chunk):
+            if len(word + chunk) <= self.chunk_size - self.chunk_overlap:
+                word += chunk + ' '
+            else:
+                for j in range(base-1, -1, -1):
+                    if len(word + splited_chunk[j]) < self.chunk_size:
+                        word = f'{splited_chunk[j]} {word}'
+                    else:
+                        break
+                base = idx
 
-#         if buffer:
-#             chunks.append(buffer)
+                new_chunk.append(word)
+                word = chunk + ' '
 
-#         split_chunks = []
-#         for chunk in chunks:
-#             split_chunks.extend(self._split_text(chunk, separators_idx + 1))
+        for j in range(base-1, -1, -1):
+            if len(word + splited_chunk[j]) < self.chunk_size:
+                word = f'{splited_chunk[j]} {word}'
+            else:
+                break
+        new_chunk.append(word)
+        return new_chunk
 
-#         return self._combine_chunks(split_chunks)
 
-#     def _split_by_chunk_size(self, text: str):
-#         chunks = []
-#         start = 0 if text[0] != ' ' else 1
-        
-#         while start < len(text):
-#             end = start + self.chunk_size
-#             chunk = text[start:end]
-#             chunks.append(chunk)
-#             start += self.chunk_size - self.chunk_overlap
-#         return chunks
 
-#     def _combine_chunks(self, chunks):
-#         if not chunks:
-#             return []
-        
-#         combined_chunks = [chunks[0]]
-#         for i in range(1, len(chunks)):
-#             if len(combined_chunks[-1]) + len(chunks[i]) - self.chunk_overlap <= self.chunk_size:
-#                 combined_chunks[-1] += chunks[i][self.chunk_overlap:]
-#             else:
-#                 combined_chunks.append(chunks[i])
-        
-#         return combined_chunks
+# 예제 사용
+if __name__ == '__main__':
+    text = "This is a long text. It contains multiple sentences and paragraphs.\n\nWe want to split it into chunks."
+    print(text)
+    print("================")
+    splitter = RecursiveCharacterTextSplitter(chunk_size=20, chunk_overlap=5)
+    chunks = splitter.split_text(text)
 
-# # 예제 사용
-# if __name__ == '__main__':
-#     text = "This is a long text. It contains multiple sentences and paragraphs.\n\nWe want to split it into chunks."
-#     print(text)
-#     print("================")
-#     splitter = RecursiveCharacterTextSplitterClass(chunk_size=50, chunk_overlap=10)
-#     chunks = splitter.create_documents(text)
-
-#     for chunk in chunks:
-#         print(chunk)
+    for chunk in chunks:
+        print(chunk)

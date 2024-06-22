@@ -7,7 +7,7 @@ class PyPDFLoader:
         url = pdf
 
         # 다운로드할 파일 경로 지정
-        self.file_path = "./My_LangChain/downloads/downloaded_example.pdf"
+        self.file_path = "./downloads/downloaded_example.pdf"
 
         # PDF 파일 다운로드
         response = requests.get(url)

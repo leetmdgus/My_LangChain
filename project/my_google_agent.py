@@ -29,7 +29,7 @@ def play_rag(query, urls):
 
         if retriever == [' ']:
             continue
-        
+    
         chain = LLMChain(llm, retriever=retriever)
         response = chain(query)
         print(response)
@@ -52,11 +52,14 @@ def main():
     # 3. Provide answer using RAG approach with the returned URL
     play_rag(user_query, urls)
 
+#개선해야할 점: 응답 속도가 매우 느림
 if __name__ == "__main__":
     # 질문 예시 
-    # 1. 지금 몇시야?
-    # 2. 내일 서울의 날씨를 알려줘
-    # 3. 서울에 있는 맛집을 추천해줘
-    # 4. 랭체인에 대해 설명해줘 (X)
-    # 5. 최신 뉴스 기사 중 주목할 내용 있어? (X)
+    # 1. What time is it? 
+    # 2. Tell me about the tomorrow's weather
+    # 3. Tell me about the korean food restaurant in Seoul
+    # 4. Tell me about the langchain
+    # 5. How was the insideout2?
+    # 6. Are there currently news articles that I have to noticed?
+
     main()

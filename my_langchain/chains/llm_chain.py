@@ -3,7 +3,7 @@ from my_langchain.chat_models import ChatOpenAI
 class LLMChain:
     def __init__(self, llm: ChatOpenAI, retriever=[]):
         self.llm = llm
-        self.retriever = retriever
+        self.retriever = retriever[0:len(retriever)//2]
     
     @classmethod
     def from_llm(cls, llm, retriever):

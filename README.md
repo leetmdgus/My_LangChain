@@ -56,7 +56,7 @@ from my_langchain.chat_models import ChatOpenAI
 
 ## 프로젝트2 - chatbot_with_web
 ### 요약
-- pdf의 url을 입력하고, 그에 해당하는 질문을 하게 되면 web을 참고하여 응답을 생성하는 chatbot.
+- web url을 입력하고, 그에 해당하는 질문을 하게 되면 web을 참고하여 응답을 생성하는 chatbot.
 
 ### 사용법
 ```

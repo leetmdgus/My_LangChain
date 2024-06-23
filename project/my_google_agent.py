@@ -13,28 +13,33 @@ from my_langchain.chains import LLMChain
 
 def play_rag(query, urls):
     llm = ChatOpenAI()
-    
-    print(urls)
 
     for url in urls:
         loader = WebBaseLoader(url)
         text = loader.load()
+
+        if text == ' ':
+            continue
 
         splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=0)
         text_chunks = splitter.split_text(text)
         
         db = Chroma.from_texts(text_chunks)
         retriever = db.similarity_search(query)
+        
+        if retriever == [' ']:
+            continue
 
-        print(retriever)
         chain = LLMChain(llm, retriever=retriever)
         response = chain(query)
         print(response)
         return response
+    
+    print('죄송합니다. 정보를 찾을 수 없습니다.')
 
 def make_query(query):
     llm = ChatOpenAI()
-    return llm.predict(f'to aquire the resopnse about "{query}", make the a proper question, and just only say that.')
+    return llm.predict(f'to aquire the resopnse about "{query}", make the a proper question, and just only say that in English.')
 
 def main():
     # 1. Get user's question in English
@@ -48,4 +53,9 @@ def main():
     play_rag(user_query, urls)
 
 if __name__ == "__main__":
+    # 질문 예시 
+    # 1. 지금 몇시야?
+    # 2. 내일 서울의 날씨를 알려줘
+    # 3. 서울에 있는 맛집을 추천해줘
+    # 4. 
     main()

@@ -1,10 +1,12 @@
 # My_LangChain
 - My_LangChain은 langchain 모듈을 자체적으로 구현한 프로젝트입니다.
-- 10개의 모듈과, 그 모듈로 구현된 4개의 프로젝트가 있습니다.
+- 9개의 모듈과, 그 모듈로 구현된 4개의 프로젝트가 있습니다.
 - OPENAI_API_KEY 환경변수 설정 필요합니다.
 
 - 최종 수정일: 2024/06/23
-
+- 해야할 일
+  - callbacks 모듈 구현
+  - agents 모듈 추가 구현
 
 ## 프로젝트1 - chatbot_with_pdf
 ### 요약

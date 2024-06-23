@@ -1,9 +1,2 @@
 *.exe
 __pycache__
-.venv
-
-test
-practice.py
-
-test
-test.py

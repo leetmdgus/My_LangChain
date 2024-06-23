@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 =======
 # My_LangChain
 - My_LangChain은 langchain 모듈을 자체적으로 구현한 프로젝트입니다.
@@ -231,4 +230,3 @@ from my_langchain.chat_models import ChatOpenAI
 from my_langchain.vectorstores import Chroma
 from my_langchain.chains import LLMChain
 ``` 
->>>>>>> 46726fba4db80f87264eaca10cdfc14eb3eac333

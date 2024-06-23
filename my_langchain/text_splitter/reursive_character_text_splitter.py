@@ -5,13 +5,18 @@ class RecursiveCharacterTextSplitter:
         self.chunk_size:int = chunk_size
         self.chunk_overlap:int = chunk_overlap
 
-    def split_text(self, text:str):
+    def split_text(self, text:str|list):
+        if type(text) == list:
+            text = ' '.join(text)
+            
         # 단어 단위로 text split
 
         text = text.replace('\n', ' ')
         text = text.replace('.', ' ')
         text = text.replace(',', ' ')
         text = text.replace('\t', ' ')
+        text = text.replace('\r', ' ')
+
         while '  ' in text:
             text = text.replace('  ', ' ')
 

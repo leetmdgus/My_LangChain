@@ -5,7 +5,6 @@ from my_langchain.document_loaders import PyPDFLoader
 from my_langchain.vectorstores import Chroma
 from my_langchain.chat_models import ChatOpenAI
 
-
 class ChatbotWithPDF:
     def __init__(self, pdf: str):
         self.llm = ChatOpenAI();
@@ -23,11 +22,13 @@ class ChatbotWithPDF:
         self.qa = LLMChain.from_llm(llm = self.llm, retriver=doc)
         print(self.qa(query))
 
-
-if __name__ == '__main__':
+def main():
     chat = ChatbotWithPDF(pdf = "https://snuac.snu.ac.kr/2015_snuac/wp-content/uploads/2015/07/asiabrief_3-26.pdf")
 
     print('첫 번째 질문')
     chat('저출산을 극복한 나라들은 어디가 있어?')
     print('두 번째 질문')
     chat('최신 관련 자료들의 문헌 제목을 알려줘')
+
+if __name__ == '__main__':
+    main()

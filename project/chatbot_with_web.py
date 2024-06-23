@@ -21,9 +21,11 @@ class ChatbotWithWeb:
         self.qa = LLMChain.from_llm(llm = self.llm, retriver=doc)
         print(self.qa(query))
 
-if __name__ == '__main__':
+def main():
     chat2 = ChatbotWithWeb(url = 'http://18children.president.pa.go.kr/mobile/our_space/fairy_tales.php?srh%5Bcategory%5D=07&srh%5Bview_mode%5D=detail&srh%5Bseq%5D=1204')
     chat2('삼형제의 재주는 각각 무엇인가요?')
     chat2('누구의 음식을 훔쳤나요?')
 
+if __name__ == '__main__':
+   main()
     

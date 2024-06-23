@@ -26,10 +26,10 @@ def play_rag(query, urls):
         
         db = Chroma.from_texts(text_chunks)
         retriever = db.similarity_search(query)
-        
+
         if retriever == [' ']:
             continue
-
+        
         chain = LLMChain(llm, retriever=retriever)
         response = chain(query)
         print(response)
@@ -57,5 +57,6 @@ if __name__ == "__main__":
     # 1. 지금 몇시야?
     # 2. 내일 서울의 날씨를 알려줘
     # 3. 서울에 있는 맛집을 추천해줘
-    # 4. 
+    # 4. 랭체인에 대해 설명해줘 (X)
+    # 5. 최신 뉴스 기사 중 주목할 내용 있어? (X)
     main()
